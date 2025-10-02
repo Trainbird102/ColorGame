@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from PIL import Image, ImageTk, ImageDraw
+from collections import deque
 
 
 class ColoringApp:
@@ -181,7 +182,7 @@ class ColoringApp:
             # Конвертируем PIL Image в PhotoImage
             self.tk_image = ImageTk.PhotoImage(self.current_image)
 
-            # Очищаем холст :cite[1]:cite[4]:cite[8] и отображаем изображение
+            # Очищаем холст и отображаем изображение
             self.canvas.delete("all")
             self.canvas.create_image(250, 200, image=self.tk_image, anchor=tk.CENTER)
             self.status_var.set("Изображение загружено")
@@ -223,28 +224,47 @@ class ColoringApp:
             self.status_var.set("Клик вне изображения")
 
     def fill_area(self, x, y):
-        """Упрощенная заливка области - красит небольшой прямоугольник вокруг клика"""
+        """Заливка всей ограниченной области с использованием алгоритма flood fill"""
         try:
+            # Получаем выбранный цвет
             selected_color_num = self.selected_color.get()
             new_color_hex = self.colors[selected_color_num]
-
-            # Преобразуем цвет из HEX в RGB
             new_color_rgb = tuple(int(new_color_hex.lstrip('#')[i:i + 2], 16) for i in (0, 2, 4))
 
-            # Создаем объект для рисования
-            draw = ImageDraw.Draw(self.current_image)
+            # Получаем исходный цвет в точке клика
+            target_color = self.current_image.getpixel((x, y))
 
-            # Определяем область для заливки (небольшой прямоугольник вокруг точки клика)
-            # Это упрощенный подход вместо сложной заливки
-            left = max(0, x - 20)
-            top = max(0, y - 20)
-            right = min(399, x + 20)
-            bottom = min(299, y + 20)
+            # Если кликнули по черному контуру или уже закрашенной области, игнорируем
+            if target_color == (0, 0, 0) or target_color == new_color_rgb:
+                return
 
-            # Закрашиваем область
-            draw.rectangle([left, top, right, bottom], fill=new_color_rgb, outline='black')
+            # Используем BFS для заливки области
+            pixels = self.current_image.load()
+            width, height = self.current_image.size
 
-            self.status_var.set("Область закрашена")
+            queue = deque([(x, y)])
+            visited = set()
+
+            while queue:
+                cx, cy = queue.popleft()
+
+                if (cx, cy) in visited:
+                    continue
+
+                visited.add((cx, cy))
+
+                # Проверяем границы и совпадение цвета
+                if (0 <= cx < width and 0 <= cy < height and
+                        pixels[cx, cy] == target_color):
+
+                    # Закрашиваем пиксель
+                    pixels[cx, cy] = new_color_rgb
+
+                    # Добавляем соседние пиксели
+                    for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                        queue.append((cx + dx, cy + dy))
+
+            self.status_var.set(f"Область закрашена. Закрашено пикселей: {len(visited)}")
 
         except Exception as e:
             print(f"Ошибка при заливке: {e}")
@@ -252,7 +272,7 @@ class ColoringApp:
 
     def clear_image(self):
         """Очищает изображение (возвращает к исходному состоянию)"""
-        # Восстанавливаем исходное изображение :cite[1]:cite[4]
+        # Восстанавливаем исходное изображение
         self.current_image = self.original_images[self.current_image_type].copy()
         # Также обновляем основное изображение в словаре
         self.images[self.current_image_type] = self.current_image.copy()
@@ -260,7 +280,7 @@ class ColoringApp:
         self.status_var.set("Изображение очищено")
 
     def save_image(self):
-        """Сохраняет раскрашенное изображение :cite[3]:cite[5]:cite[9]"""
+        """Сохраняет раскрашенное изображение"""
         try:
             filename = f"colored_{self.current_image_type}.png"
             self.current_image.save(filename)
