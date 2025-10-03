@@ -8,7 +8,7 @@ class ColoringApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Раскраска по номерам")
-        self.root.geometry("1000x800")
+        self.root.geometry("1100x950")
 
         # Цвета радуги
         self.colors = {
@@ -97,7 +97,7 @@ class ColoringApp:
         self.images['house'] = house_img
 
         # РОЗА - сложное изображение с более чем 40 блоками
-        rose_img = Image.new('RGB', (600, 500), 'white')
+        rose_img = Image.new('RGB', (500, 500), 'white')
         draw = ImageDraw.Draw(rose_img)
 
         # Центральные лепестки розы (сложная структура)
@@ -231,7 +231,7 @@ class ColoringApp:
         canvas_frame.pack(pady=5)
 
         # Холст для цветов с прокруткой
-        self.colors_canvas = tk.Canvas(canvas_frame, width=700, height=120)
+        self.colors_canvas = tk.Canvas(canvas_frame, width=1300, height=120)
         scrollbar = tk.Scrollbar(canvas_frame, orient="horizontal", command=self.colors_canvas.xview)
         self.colors_canvas.configure(xscrollcommand=scrollbar.set)
 
