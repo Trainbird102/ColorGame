@@ -8,7 +8,7 @@ class ColoringApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Раскраска по номерам")
-        self.root.geometry("900x700")
+        self.root.geometry("1000x800")
 
         # Цвета радуги
         self.colors = {
@@ -18,7 +18,15 @@ class ColoringApp:
             4: '#00FF00',  # зеленый
             5: '#0000FF',  # синий
             6: '#4B0082',  # индиго
-            7: '#8B00FF'  # фиолетовый
+            7: '#8B00FF',  # фиолетовый
+            8: '#FF69B4',  # розовый
+            9: '#00FFFF',  # голубой
+            10: '#FFA500',  # темно-оранжевый
+            11: '#98FB98',  # светло-зеленый
+            12: '#DDA0DD',  # светло-фиолетовый
+            13: '#FFD700',  # золотой
+            14: '#DC143C',  # малиновый
+            15: '#32CD32'  # лаймовый
         }
 
         # Создаем изображения для раскраски
@@ -88,6 +96,82 @@ class ColoringApp:
 
         self.images['house'] = house_img
 
+        # РОЗА - сложное изображение с более чем 40 блоками
+        rose_img = Image.new('RGB', (600, 500), 'white')
+        draw = ImageDraw.Draw(rose_img)
+
+        # Центральные лепестки розы (сложная структура)
+        # Внутренние лепестки (1-15)
+        draw.ellipse([250, 150, 350, 200], outline='black', fill='lightgray')  # 1
+        draw.ellipse([230, 160, 310, 220], outline='black', fill='lightgray')  # 2
+        draw.ellipse([290, 160, 370, 220], outline='black', fill='lightgray')  # 3
+        draw.ellipse([220, 180, 280, 240], outline='black', fill='lightgray')  # 4
+        draw.ellipse([320, 180, 380, 240], outline='black', fill='lightgray')  # 5
+        draw.ellipse([240, 200, 300, 260], outline='black', fill='lightgray')  # 6
+        draw.ellipse([300, 200, 360, 260], outline='black', fill='lightgray')  # 7
+        draw.ellipse([260, 220, 320, 280], outline='black', fill='lightgray')  # 8
+        draw.ellipse([220, 140, 270, 190], outline='black', fill='lightgray')  # 9
+        draw.ellipse([330, 140, 380, 190], outline='black', fill='lightgray')  # 10
+        draw.ellipse([240, 130, 290, 180], outline='black', fill='lightgray')  # 11
+        draw.ellipse([310, 130, 360, 180], outline='black', fill='lightgray')  # 12
+        draw.ellipse([260, 120, 310, 170], outline='black', fill='lightgray')  # 13
+        draw.ellipse([280, 110, 330, 160], outline='black', fill='lightgray')  # 14
+        draw.ellipse([270, 100, 320, 150], outline='black', fill='lightgray')  # 15
+
+        # Внешние лепестки (16-30)
+        draw.ellipse([180, 200, 240, 260], outline='black', fill='lightgray')  # 16
+        draw.ellipse([360, 200, 420, 260], outline='black', fill='lightgray')  # 17
+        draw.ellipse([160, 220, 220, 280], outline='black', fill='lightgray')  # 18
+        draw.ellipse([380, 220, 440, 280], outline='black', fill='lightgray')  # 19
+        draw.ellipse([140, 240, 200, 300], outline='black', fill='lightgray')  # 20
+        draw.ellipse([400, 240, 460, 300], outline='black', fill='lightgray')  # 21
+        draw.ellipse([120, 260, 180, 320], outline='black', fill='lightgray')  # 22
+        draw.ellipse([420, 260, 480, 320], outline='black', fill='lightgray')  # 23
+        draw.ellipse([100, 280, 160, 340], outline='black', fill='lightgray')  # 24
+        draw.ellipse([440, 280, 500, 340], outline='black', fill='lightgray')  # 25
+        draw.ellipse([200, 280, 260, 340], outline='black', fill='lightgray')  # 26
+        draw.ellipse([340, 280, 400, 340], outline='black', fill='lightgray')  # 27
+        draw.ellipse([220, 300, 280, 360], outline='black', fill='lightgray')  # 28
+        draw.ellipse([320, 300, 380, 360], outline='black', fill='lightgray')  # 29
+        draw.ellipse([240, 320, 300, 380], outline='black', fill='lightgray')  # 30
+
+        # Листья и стебель (31-45)
+        draw.rectangle([295, 350, 305, 450], outline='black', fill='lightgray')  # 31 - стебель
+        draw.polygon([300, 350, 250, 330, 300, 310], outline='black', fill='lightgray')  # 32 - лист левый верх
+        draw.polygon([300, 370, 250, 390, 300, 410], outline='black', fill='lightgray')  # 33 - лист левый низ
+        draw.polygon([300, 350, 350, 330, 300, 310], outline='black', fill='lightgray')  # 34 - лист правый верх
+        draw.polygon([300, 370, 350, 390, 300, 410], outline='black', fill='lightgray')  # 35 - лист правый низ
+
+        # Дополнительные детали листьев
+        draw.ellipse([230, 300, 270, 340], outline='black', fill='lightgray')  # 36
+        draw.ellipse([330, 300, 370, 340], outline='black', fill='lightgray')  # 37
+        draw.ellipse([210, 320, 250, 360], outline='black', fill='lightgray')  # 38
+        draw.ellipse([350, 320, 390, 360], outline='black', fill='lightgray')  # 39
+        draw.ellipse([190, 340, 230, 380], outline='black', fill='lightgray')  # 40
+        draw.ellipse([370, 340, 410, 380], outline='black', fill='lightgray')  # 41
+        draw.ellipse([170, 360, 210, 400], outline='black', fill='lightgray')  # 42
+        draw.ellipse([390, 360, 430, 400], outline='black', fill='lightgray')  # 43
+        draw.ellipse([150, 380, 190, 420], outline='black', fill='lightgray')  # 44
+        draw.ellipse([410, 380, 450, 420], outline='black', fill='lightgray')  # 45
+
+        # Добавляем номера для всех областей розы
+        number_positions = [
+            (270, 165), (250, 180), (320, 180), (240, 200), (340, 200),  # 1-5
+            (260, 220), (320, 220), (280, 240), (240, 155), (350, 155),  # 6-10
+            (260, 145), (330, 145), (280, 135), (300, 125), (290, 115),  # 11-15
+            (205, 220), (385, 220), (185, 240), (405, 240), (165, 260),  # 16-20
+            (425, 260), (145, 280), (445, 280), (125, 300), (465, 300),  # 21-25
+            (225, 300), (365, 300), (245, 320), (345, 320), (265, 340),  # 26-30
+            (295, 390), (270, 320), (270, 380), (330, 320), (330, 380),  # 31-35
+            (245, 315), (345, 315), (225, 330), (365, 330), (205, 350),  # 36-40
+            (385, 350), (185, 370), (405, 370), (165, 390), (425, 390)  # 41-45
+        ]
+
+        for i, pos in enumerate(number_positions, 1):
+            draw.text(pos, str(i), fill='black', font=None)
+
+        self.images['rose'] = rose_img
+
         # Создаем копии для раскрашивания
         self.current_image = car_img.copy()
         self.current_image_type = 'car'
@@ -102,19 +186,18 @@ class ColoringApp:
         tk.Label(selection_frame, text="Выберите картинку:", font=('Arial', 12)).pack(side=tk.LEFT)
 
         self.image_var = tk.StringVar(value="car")
-        tk.Radiobutton(selection_frame, text="Машина", variable=self.image_var,
-                       value="car", command=self.change_image).pack(side=tk.LEFT, padx=5)
-        tk.Radiobutton(selection_frame, text="Ракета", variable=self.image_var,
-                       value="rocket", command=self.change_image).pack(side=tk.LEFT, padx=5)
-        tk.Radiobutton(selection_frame, text="Дом", variable=self.image_var,
-                       value="house", command=self.change_image).pack(side=tk.LEFT, padx=5)
+        images = [("Машина", "car"), ("Ракета", "rocket"), ("Дом", "house"), ("Роза", "rose")]
+
+        for text, value in images:
+            tk.Radiobutton(selection_frame, text=text, variable=self.image_var,
+                           value=value, command=self.change_image).pack(side=tk.LEFT, padx=5)
 
         # Основной фрейм с изображением и палитрой
         main_frame = tk.Frame(self.root)
         main_frame.pack(expand=True, fill=tk.BOTH, padx=10, pady=10)
 
         # Холст для изображения
-        self.canvas = tk.Canvas(main_frame, width=500, height=400, bg='white',
+        self.canvas = tk.Canvas(main_frame, width=600, height=500, bg='white',
                                 cursor="crosshair", highlightthickness=1, highlightbackground="black")
         self.canvas.pack(side=tk.TOP, pady=10)
 
@@ -137,20 +220,33 @@ class ColoringApp:
         # Отображаем текущее изображение
         self.display_image()
 
-        # Палитра цветов
+        # Палитра цветов с прокруткой
         palette_frame = tk.Frame(main_frame)
         palette_frame.pack(side=tk.TOP, pady=10)
 
         tk.Label(palette_frame, text="Палитра цветов:", font=('Arial', 12)).pack()
 
-        colors_frame = tk.Frame(palette_frame)
-        colors_frame.pack(pady=5)
+        # Создаем фрейм с прокруткой для цветов
+        canvas_frame = tk.Frame(palette_frame)
+        canvas_frame.pack(pady=5)
+
+        # Холст для цветов с прокруткой
+        self.colors_canvas = tk.Canvas(canvas_frame, width=700, height=120)
+        scrollbar = tk.Scrollbar(canvas_frame, orient="horizontal", command=self.colors_canvas.xview)
+        self.colors_canvas.configure(xscrollcommand=scrollbar.set)
+
+        scrollbar.pack(side="bottom", fill="x")
+        self.colors_canvas.pack(side="top", fill="both", expand=True)
+
+        # Фрейм для цветов внутри холста
+        colors_inner_frame = tk.Frame(self.colors_canvas)
+        self.colors_canvas.create_window((0, 0), window=colors_inner_frame, anchor="nw")
 
         self.selected_color = tk.IntVar(value=1)
 
         # Создаем кнопки цветов с отображением hex-кода
         for i, (num, color) in enumerate(self.colors.items()):
-            color_frame = tk.Frame(colors_frame)
+            color_frame = tk.Frame(colors_inner_frame)
             color_frame.pack(side=tk.LEFT, padx=5)
 
             # Показываем цвет с рамкой
@@ -164,6 +260,10 @@ class ColoringApp:
             # Радиокнопка для выбора цвета
             tk.Radiobutton(color_frame, text=f"Цвет {num}", variable=self.selected_color,
                            value=num, font=('Arial', 9)).pack()
+
+        # Обновляем прокрутку после добавления элементов
+        colors_inner_frame.update_idletasks()
+        self.colors_canvas.configure(scrollregion=self.colors_canvas.bbox("all"))
 
         # Кнопки управления
         control_frame = tk.Frame(main_frame)
@@ -184,7 +284,13 @@ class ColoringApp:
 
             # Очищаем холст и отображаем изображение
             self.canvas.delete("all")
-            self.canvas.create_image(250, 200, image=self.tk_image, anchor=tk.CENTER)
+
+            # Центрируем изображение в зависимости от его размера
+            img_width, img_height = self.current_image.size
+            x = 300 if img_width == 600 else 250  # 300 для розы, 250 для других
+            y = 250 if img_height == 500 else 200  # 250 для розы, 200 для других
+
+            self.canvas.create_image(x, y, image=self.tk_image, anchor=tk.CENTER)
             self.status_var.set("Изображение загружено")
 
         except Exception as e:
@@ -196,6 +302,13 @@ class ColoringApp:
         image_type = self.image_var.get()
         self.current_image = self.images[image_type].copy()
         self.current_image_type = image_type
+
+        # Меняем размер холста в зависимости от изображения
+        if image_type == 'rose':
+            self.canvas.configure(width=600, height=500)
+        else:
+            self.canvas.configure(width=500, height=400)
+
         self.display_image()
         self.status_var.set(f"Загружено: {image_type}")
 
@@ -204,24 +317,34 @@ class ColoringApp:
         # Получаем координаты клика
         x, y = event.x, event.y
 
-        # Проверяем, что клик внутри области изображения (примерные границы)
-        if 50 <= x <= 450 and 50 <= y <= 350:
-            # Преобразуем координаты холста в координаты изображения
-            img_x = x - 50
-            img_y = y - 50
-
-            # Ограничиваем координаты размерами изображения
-            img_x = max(0, min(img_x, 399))
-            img_y = max(0, min(img_y, 299))
-
-            self.status_var.set(f"Клик по координатам: ({img_x}, {img_y})")
-
-            # Заливаем область выбранным цветом
-            self.fill_area(img_x, img_y)
-            # Обновляем отображение
-            self.display_image()
+        # Определяем границы в зависимости от типа изображения
+        if self.current_image_type == 'rose':
+            # Для розы (600x500)
+            if 0 <= x <= 600 and 0 <= y <= 500:
+                img_x, img_y = x, y
+            else:
+                self.status_var.set("Клик вне изображения")
+                return
         else:
-            self.status_var.set("Клик вне изображения")
+            # Для других изображений (400x300)
+            if 50 <= x <= 450 and 50 <= y <= 350:
+                img_x = x - 50
+                img_y = y - 50
+            else:
+                self.status_var.set("Клик вне изображения")
+                return
+
+        # Ограничиваем координаты размерами изображения
+        img_width, img_height = self.current_image.size
+        img_x = max(0, min(img_x, img_width - 1))
+        img_y = max(0, min(img_y, img_height - 1))
+
+        self.status_var.set(f"Клик по координатам: ({img_x}, {img_y})")
+
+        # Заливаем область выбранным цветом
+        self.fill_area(img_x, img_y)
+        # Обновляем отображение
+        self.display_image()
 
     def fill_area(self, x, y):
         """Заливка всей ограниченной области с использованием алгоритма flood fill"""
